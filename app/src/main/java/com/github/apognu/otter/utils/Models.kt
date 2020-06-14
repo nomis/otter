@@ -16,6 +16,7 @@ class PlaylistTracksCache(data: List<PlaylistTrack>) : CacheItem<PlaylistTrack>(
 class RadiosCache(data: List<Radio>) : CacheItem<Radio>(data)
 class FavoritedCache(data: List<Int>) : CacheItem<Int>(data)
 class QueueCache(data: List<Track>) : CacheItem<Track>(data)
+class TagsCache(data: List<Tag>) : CacheItem<Tag>(data)
 
 abstract class FunkwhaleResponse<D : Any> {
   abstract val count: Int
@@ -53,6 +54,10 @@ data class PlaylistTracksResponse(override val count: Int, override val next: St
 }
 
 data class RadiosResponse(override val count: Int, override val next: String?, val results: List<Radio>) : FunkwhaleResponse<Radio>() {
+  override fun getData() = results
+}
+
+data class TagsResponse(override val count: Int, override val next: String?, val results: List<Tag>) : FunkwhaleResponse<Tag>() {
   override fun getData() = results
 }
 
@@ -162,3 +167,5 @@ data class DownloadInfo(
   val artist: String,
   var download: Download?
 )
+
+data class Tag(val name: String)
